@@ -3,6 +3,16 @@ uuid = "ea66a62d-06de-4c86-b7c1-135489d77d0e"
 authors = ["Felix <felix.cremer@bgc-jena.mpg.de> and contributors"]
 version = "0.1.0"
 
+[deps]
+ArchGDAL = "c9ce4bd3-c3d5-55b8-8973-c0e20141b8c3"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+GeoFormatTypes = "68eda718-8dee-11e9-39e7-89f7f65f511f"
+Glob = "c27321d9-0574-5035-807b-f59d2c89b15c"
+Proj = "c94c279d-25a6-4763-9509-64d165bea63e"
+UnicodePlots = "b8865327-cd53-5732-bb35-84acbb429228"
+YAXArrays = "c21b50f5-aa40-41ea-b809-c0f5e47bfa5c"
+Zarr = "0a941bbe-ad1d-11e8-39d9-ab76183a1d99"
+
 [compat]
 julia = "1"
 
