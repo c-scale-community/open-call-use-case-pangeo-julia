@@ -7,4 +7,5 @@ using YAXArrays
 export gdalcube
 
 include("auxil.jl")
+include("analysis.jl")
 end
