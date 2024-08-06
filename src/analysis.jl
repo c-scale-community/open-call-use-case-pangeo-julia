@@ -87,6 +87,24 @@ function tau_recurrence(ts::AbstractVector, thresh, metric=Euclidean())
 end
 
 """
+    anti_diagonal_density(ts, thresh, metric)
+Compute the average density of the diagonals perpendicular to the main diagonal for data series `ts`.
+Uses the threshold `thresh` and `metric` for the computation of the similarities.
+"""
+function anti_diagonal_density(ts::AbstractVector, thresh, metric=Euclidean())
+    n = length(ts)
+    ad_densities = zeros(2*n-3)
+    for col in 1:n
+        for row in 1:(col - 1)
+            d = evaluate(metric, ts[col], ts[row])
+            #@show row, col, d
+            ad_densities[col+row - 2] += d <= thresh
+        end
+    end
+    ad_densities
+end
+
+"""
 Compute the forest masking thresholding and clustering of the rqadata in one step
 """
 function inner_postprocessing(rqadata, forestmask; threshold=-1.28, clustersize=30)
