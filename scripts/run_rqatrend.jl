@@ -5,23 +5,24 @@ using Glob
 using Dates
 using ArgParse
 Threads.nthreads()
-YAXArrays.YAXDefaults.workdir[] = "/eodc/private/pangeojulia/"
+#YAXArrays.YAXDefaults.workdir[] = "/eodc/private/pangeojulia/"
+YAXArrays.YAXDefaults.workdir[] = "/home/ubuntu/RQADeforestation/data"
 
-using Distributed
-nw = 8
-addprocs(nw)
-@everywhere begin
+#using Distributed
+
+#addprocs(nw)
+#@everywhere begin
     using Pkg
     Pkg.activate("/home/ubuntu/RQADeforestation/")
-end
+#end
 
-@everywhere using ArchGDAL
-@everywhere begin
+#@everywhere using ArchGDAL
+#@everywhere begin
     using YAXArrays
     using RQADeforestation
-end
-@everywhere using Logging
-@everywhere using LoggingExtras
+#end
+#@everywhere using Logging
+#@everywhere using LoggingExtras
 #@everywhere flog = MinLevelLogger(FileLogger("logfile_rqtrend_d066.txt"), Logging.Warn)
 #@everywhere Base.global_logger(flog)
 
@@ -75,7 +76,7 @@ function main(parsedargs=parse_commandline())
     tcube = if year == 0
         cubevh
     else
-        cubevh[Time=(Date(year-1, 7,1), Date(year+1,6,30))]
+        cubevh[Time=Date(year-1, 7,1)..Date(year+1,6,30)]
     end
     tax = tcube.Time
     @show tax
@@ -84,7 +85,7 @@ function main(parsedargs=parse_commandline())
     #@time cubevh[:,:,:];
     println("Doing the RQA computation:")
     YAXArrays.YAXDefaults.max_cache[]=5e8
-    path="/eodc/private/pangeojulia/$(tile)_rqatrend_$(pol)_$(orbit)_thresh_$(thresh)_year_$(year).zarr"
+    path="/home/ubuntu/RQADeforestation/data/$(tile)_rqatrend_$(pol)_$(orbit)_thresh_$(thresh)_year_$(year).zarr"
     @show path
     #redirect_stdio(stdout="stdout"*stdiopath, stderr="stderr" * stdiopath) do
         println("Start of the processing: ",now())
