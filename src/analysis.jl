@@ -101,7 +101,10 @@ function anti_diagonal_density(ts::AbstractVector, thresh, metric=Euclidean())
             ad_densities[col+row - 2] += d <= thresh
         end
     end
-    ad_densities
+    half = div(n,2)
+    maxdensities = collect(Iterators.flatten([(n,n) for n in 1:half-1]))
+    diagonallengths = [maxdensities..., half, reverse(maxdensities)...]
+    ad_densities ./ diagonallengths
 end
 
 """
@@ -116,7 +119,7 @@ function inner_postprocessing(rqadata, forestmask; threshold=-1.28, clustersize=
             x
         end
     end
-    @time labeldata = MultipleTesting.label_components(rqathresh,trues(3,3))
-    @time clusterdata = MultipleTesting.maskcluster(rqathresh, labeldata, clustersize)
+    #@time labeldata = MultipleTesting.label_components(rqathresh,trues(3,3))
+    #@time clusterdata = MultipleTesting.maskcluster(rqathresh, labeldata, clustersize)
 end
 
