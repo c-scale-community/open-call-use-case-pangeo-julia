@@ -55,8 +55,9 @@ end
 
 Compute the RQA trend metric for the datacube `cube` with the epsilon threshold `thresh`.
 """
-function rqatrend(cube; thresh=2, path=tempname() * ".zarr", overwrite=false)
-    mapCube(rqatrend, cube, thresh; indims=InDims("Time"), outdims=OutDims(;outtype=Float16, path, overwrite))
+function rqatrend(cube; thresh=2, outpath=tempname() * ".zarr", overwrite=false)
+    @show outpath
+    mapCube(rqatrend, cube, thresh; indims=InDims("Time"), outdims=OutDims(;outtype=Float16, outpath, overwrite))
 end
 function rqatrend(cube; thresh=2, outpath=tempname() * ".zarr", overwrite=false)
     mapCube(rqatrend, cube, thresh; indims=InDims("Time"), outdims=OutDims(;outtype=Float16, outpath, overwrite))
